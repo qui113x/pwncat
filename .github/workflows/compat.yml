@@ -4,7 +4,7 @@ on:
   push:
     branches: [ fix/python-3.13-shim ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   smoke:
