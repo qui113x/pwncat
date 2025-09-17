@@ -1,0 +1,54 @@
+name: build-and-release
+
+on:
+  push:
+    tags:
+      - 'v*'  # trigger on tags like v0.5.4-qui2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.11, 3.12, 3.13]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install build backend
+        run: python -m pip install --upgrade pip build
+      - name: Build wheel
+        run: python -m build --wheel --outdir dist
+      - name: Upload wheel artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.python }}
+          path: dist/*.whl
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+
+      # Download all wheel-* artifacts into a single folder
+      - name: Download wheel artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wheel-*
+          merge-multiple: true
+          path: artifacts
+
+      # Create (or update) the GitHub Release and upload wheels
+      - name: Publish release with wheels
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: "Automated wheels for ${{ github.ref_name }} (built for 3.11/3.12/3.13)."
+          files: artifacts/*.whl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

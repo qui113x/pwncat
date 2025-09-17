@@ -10,7 +10,7 @@ testpaths = [
 addopts = "-v"
 
 [tool.poetry]
-name = "pwncat-cs"
+name = "pwncat-qui113x"
 version = "0.5.4"
 description = "Reverse and bind shell automation framework"
 authors = ["Caleb Stewart <caleb.stewart94@gmail.com>", "John Hammond"]
@@ -24,7 +24,7 @@ packages = [
 license = "MIT"
 
 [tool.poetry.scripts]
-pwncat-cs = "pwncat.__main__:main"
+pwncat-qui = "pwncat.__main__:main"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/calebstewart/pwncat/issues"
@@ -59,3 +59,4 @@ docs = ["sphinx-toolbox", "Sphinx", "enum-tools", "furo"]
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+

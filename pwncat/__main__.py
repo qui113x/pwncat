@@ -101,8 +101,16 @@ def main():
 
     # Print the version number and exit.
     if args.version:
-        print(importlib.metadata.version("pwncat-cs"))
-        return
+        try:
+            ver = importlib.metadata.version('pwncat-qui113x')
+        except importlib.metadata.PackageNotFoundError:
+            try:
+                ver = importlib.metadata.version('pwncat-cs')
+            except importlib.metadata.PackageNotFoundError:
+                ver = 'unknown'
+        print(ver)
+        return 0
+
 
     # Create the session manager
     with pwncat.manager.Manager(args.config) as manager:
