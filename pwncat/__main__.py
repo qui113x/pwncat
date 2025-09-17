@@ -101,7 +101,6 @@ def main():
 
     # Print the version number and exit.
     if args.version:
-        # Print version preferring forked dist, falling back to upstream
         try:
             ver = importlib.metadata.version('pwncat-qui113x')
         except importlib.metadata.PackageNotFoundError:
@@ -111,6 +110,17 @@ def main():
                 ver = 'unknown'
         print(ver)
         return 0
+
+
+    # Create the session manager
+    with pwncat.manager.Manager(args.config) as manager:
+
+        if args.verbose:
+            # set the config variable `verbose` to `True` (globally)
+            manager.config.set("verbose", True, True)
+
+        if args.download_plugins:
+            for plugin_info in pwncat.platform.Windows.PLUGIN_INFO:
                 with pwncat.platform.Windows.open_plugin(
                     manager, plugin_info.provides[0]
                 ):
