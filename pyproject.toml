@@ -24,7 +24,7 @@ packages = [
 license = "MIT"
 
 [tool.poetry.scripts]
-pwncat-cs = "pwncat.__main__:main"
+pwncat-qui = "pwncat.__main__:main"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/calebstewart/pwncat/issues"
