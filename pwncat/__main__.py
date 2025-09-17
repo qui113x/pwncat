@@ -101,7 +101,17 @@ def main():
 
     # Print the version number and exit.
     if args.version:
-        print(importlib.metadata.version("pwncat-cs"))
+        # determine distribution name for version printing (supports upstream and forked names)
+try:
+    _dist_name = "pwncat-qui113x"
+    _ver = importlib.metadata.version(_dist_name)
+except importlib.metadata.PackageNotFoundError:
+    try:
+        _dist_name = "pwncat-cs"
+        _ver = importlib.metadata.version(_dist_name)
+    except importlib.metadata.PackageNotFoundError:
+        _ver = "unknown"
+print(_ver)
         return
 
     # Create the session manager
