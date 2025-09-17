@@ -274,3 +274,26 @@ reach out or just fork the repo. As always, pull requests are welcome!
 [documentation]: https://pwncat.readthedocs.io/en/latest
 [pwncat-windows-c2]: https://github.com/calebstewart/pwncat-windows-c2
 [BadPotato]: https://github.com/calebstewart/pwncat-badpotato
+
+## pwncat-qui — fork of pwncat-cs
+
+This repository is a personal fork of **pwncat-cs**. To avoid package/CLI name collisions with the upstream project, the CLI entry point and package name in this fork are renamed to **pwncat-qui** (and the distribution is `pwncat-qui113x`).
+
+### Quick install (development)
+Activate your venv and install editable (recommended for hacking on the code):
+
+
+## pwncat-qui — fork of pwncat-cs
+
+This repository is a personal fork of **pwncat-cs**. To avoid package/CLI name collisions with the upstream project, the CLI entry point and package name in this fork are renamed to **pwncat-qui** (and the distribution is `pwncat-qui113x`).
+
+### Quick install (development)
+Activate your venv and install editable (recommended for hacking on the code):
+
+
+### Install from this fork (non-dev)
+Install directly from this fork (installs the package and console script `pwncat-qui`):
+
+
+(If you prefer `pipx`, use `pipx install 'git+https://github.com/qui113x/pwncat@fix/python-3.13-shim#egg=pwncat-qui'`.)
+
