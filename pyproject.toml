@@ -60,5 +60,3 @@ docs = ["sphinx-toolbox", "Sphinx", "enum-tools", "furo"]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[project.scripts]
-pwncat-qui = "pwncat.__main__:main"
