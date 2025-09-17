@@ -23,7 +23,7 @@ jobs:
           pip install -e .
       - name: CLI smoke test
         run: |
-          pwncat-cs --help
+          pwncat-qui --help
       - name: Run tests (if any)
         run: |
           if command -v pytest >/dev/null 2>&1; then
