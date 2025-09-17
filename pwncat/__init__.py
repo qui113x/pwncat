@@ -1,3 +1,4 @@
+from . import _compat_distutils
 """
 pwncat provides a high-level API capable of being used not only while implementing
 custom commands and modules but also to embed pwncat within scripts. pwncat can be
