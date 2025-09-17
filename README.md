@@ -45,6 +45,29 @@ the latest usage and development documentation!
 
 ## Installation
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+## pwncat-qui — fork of pwncat-cs
+
+This repository is a personal fork of **pwncat-cs**. To avoid package/CLI name collisions with the upstream project, the CLI entry point and distribution are renamed in this fork:
+
+- CLI: `pwncat-qui`
+- Distribution name: `pwncat-qui113x`
+
+### Quick install (development)
+Activate your virtualenv and install editable (recommended for hacking on the code):
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -U pip setuptools wheel
+python -m pip install -e .
+pwncat-qui --help
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 `pwncat` only depends on a working Python development environment running on Linux.
 In order to install some of the packages required with `pip`, you will likely need
 your distribution's "Python Development" package. On Debian based systems,
