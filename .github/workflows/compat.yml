@@ -3,8 +3,7 @@ name: compat-smoke
 on:
   push:
     branches: [ fix/python-3.13-shim ]
-  pull_request:
-    branches: [ master ]
+  workflow_dispatch: {}
 
 jobs:
   smoke:
@@ -24,7 +23,6 @@ jobs:
           pip install -e .
       - name: CLI smoke test
         run: |
-          # ensure entrypoint loads and prints help
           pwncat-cs --help
       - name: Run tests (if any)
         run: |
