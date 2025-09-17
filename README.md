@@ -288,3 +288,11 @@ Install directly from this fork (installs the package and console script `pwncat
 
 
 (If you prefer `pipx`, use `pipx install "git+https://github.com/qui113x/pwncat@fix/python-3.13-shim#egg=pwncat-qui".)
+
+### Install from GitHub Release
+
+You can install the prebuilt wheel directly from this release:
+
+```bash
+python3 -m pip install "https://github.com/qui113x/pwncat/releases/download/v0.5.4-qui10/pwncat_qui113x-0.5.4-py3-none-any.whl"
+pwncat-qui --version
