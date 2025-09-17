@@ -1,0 +1,85 @@
+name: build-and-release
+
+on:
+  push:
+    tags:
+      - 'v*'  # trigger on semantic tags like v0.5.4-qui1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.11, 3.12, 3.13]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install build tool
+        run: python -m pip install --upgrade pip build
+
+      - name: Build wheel
+        run: python -m build --wheel --outdir dist
+
+      - name: Archive wheel for job
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.python }}
+          path: dist/*.whl
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: "Automated build artifacts for ${{ github.ref_name }} (built on matrix python versions)"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: wheel-3.11
+          path: artifacts || true
+
+      - name: Download remaining artifacts (3.12,3.13)
+        uses: actions/download-artifact@v4
+        with:
+          name: wheel-3.12
+          path: artifacts || true
+
+      - name: Download remaining artifacts (3.13)
+        uses: actions/download-artifact@v4
+        with:
+          name: wheel-3.13
+          path: artifacts || true
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload dist files to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for f in artifacts/*.whl; do
+            echo "Uploading $f"
+            gh release upload "${GITHUB_REF_NAME#refs/tags/}" "$f" --clobber
+          done
