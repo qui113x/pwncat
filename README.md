@@ -86,7 +86,7 @@ source pwncat-env/bin/activate
 pip install pwncat-cs
 ```
 
-For a development environment, `pwncat` usage Python Poetry. You can clone the
+For a development environment, `pwncat` uses Python Poetry. You can clone the
 repository locally and use poetry to setup a development environment.
 
 ``` shell
